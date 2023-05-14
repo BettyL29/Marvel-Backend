@@ -1,0 +1,27 @@
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+require("dotenv").config();
+
+const MONGODB_URI = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB_URI);
+
+const charactersRoute = require("./routes/characters");
+const comicsRoute = require("./routes/comics");
+const usersRoute = require("./routes/users");
+app.use(charactersRoute);
+app.use(comicsRoute);
+app.use(usersRoute);
+
+app.all("*", (req, res) => {
+  res.status(404).json({ message: "404 - Page Not Found" });
+});
+
+app.listen(3000, () => {
+  console.log("Server started");
+});
