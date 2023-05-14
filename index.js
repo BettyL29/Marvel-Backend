@@ -8,6 +8,7 @@ app.use(cors());
 require("dotenv").config();
 
 mongoose.connect(process.env.MONGODB_URI);
+console.log(process.env.MONGODB_URI);
 
 const charactersRoute = require("./routes/characters");
 const comicsRoute = require("./routes/comics");
